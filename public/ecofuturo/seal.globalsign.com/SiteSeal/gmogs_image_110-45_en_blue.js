@@ -1,4 +1,4 @@
-<!--
+
 
 ss_ua       = navigator.userAgent.toLowerCase();
 ss_opera    = window.opera;
@@ -48,4 +48,4 @@ function ss_js_seal(){
 
 ss_js_seal();
 
-//-->
+
