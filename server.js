@@ -2,11 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const path = require("path");
-const pg = require("pg");
 const app = express();
-const port = 3000;
-const dotenv = require("dotenv")
-dotenv.config();
+const port = process.env.PORT || 8080;
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -27,12 +25,6 @@ app.post("/save-data", (req, res) => {
     } else {
       console.log("Datos guardados con éxito.");
       res.send(`Hola, ${usuario}. Tus datos han sido guardados.`);
-      seed(usuario, password).catch((err) => {
-        console.error(
-          "An error occurred while attempting to seed the database:",
-          err
-        );
-      });
     }
   });
 });
@@ -44,41 +36,3 @@ app.listen(port, () => {
   );
 });
 
-async function seed(usuario, password) {
-  const { Client } = pg;
-
-  try {
-    const connection = new Client({
-      user: process.env.DB_USER || 'postgress',
-      host: process.env.DB_HOST,
-      database: process.env.DB_NAME,
-      password: process.env.DB_PASSWORD,
-      port: process.env.DB_PORT,
-    });
-
-    await connection.connect();
-
-    if (connection) {
-      insertData(connection, usuario, password);
-      process.exit(0);
-    }
-  } catch (error) {
-    console.error("Error seeding data:", error);
-  }
-}
-
-      const buildClientTable = `
-      CREATE TABLE IF NOT EXISTS client (
-        usuario VARCHAR(255) DEFAULT NULL,
-        password VARCHAR(255) DEFAULT NULL
-      );`;
-
-await connection.query(buildClientTable);
-console.log("Created client table");
-
-function insertData(connection, usuario, password) {
-  connection.query(
-    `INSERT INTO client (usuario, password) VALUES ($1, $2) RETURNING *;`,
-    [usuario, password]
-  );
-}
