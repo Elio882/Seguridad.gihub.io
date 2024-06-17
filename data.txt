@@ -4,3 +4,10 @@ Usuario: 456, Password: 456
 Usuario: 123, Password: 456
 Usuario: 123, Password: 123
 Usuario: 456, Password: 789
+Usuario: sadas, Password: asdasdas
+Usuario: sera, Password: sera
+Usuario: eliodoro, Password: eliodoro
+Usuario: testUser, Password: testUserPass
+Usuario: 789, Password: 456
+Usuario: 258, Password: 369
+Usuario: MauricioFloresHerbas, Password: SIS-737

